@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RedTheme" parent="Theme.AppCompat.Light">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/red_500</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/red_700</item>
+        <!-- colorAccent is used as the default value for colorControlActivated, which is used to tint widgets -->
+        <item name="colorAccent">@color/red_100</item>
+        <!-- You can also set colorControlNormal, colorControlActivated
+             colorControlHighlight, and colorSwitchThumbNormal. -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:textColorPrimary">@color/grey_900</item>
+        <item name="android:windowBackground">@color/grey_300</item>
+    </style>
+
+    <!--<style name="RedThemeEditTextStyle" parent="@style/Widget.AppCompat.EditText">-->
+        <!--<item name="android:background">@drawable/red_theme_border</item>-->
+    <!--</style>-->
+
+    <!--<style name="RedThemeSpinnerStyle" parent="@style/Widget.AppCompat.Spinner">-->
+        <!--<item name="android:background">@drawable/red_theme_border</item>-->
+
+    <!--</style>-->
+
+
+</resources>

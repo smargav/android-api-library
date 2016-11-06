@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="tab_indicatorColor" format="color" />
+        <attr name="tab_underlineColor" format="color" />
+        <attr name="tab_dividerColor" format="color" />
+        <attr name="tab_indicatorHeight" format="dimension" />
+        <attr name="tab_underlineHeight" format="dimension" />
+        <attr name="tab_dividerPadding" format="dimension" />
+        <attr name="tab_paddingLeftRight" format="dimension" />
+        <attr name="tab_scrollOffset" format="dimension" />
+        <attr name="tab_Background" format="reference" />
+        <attr name="tab_shouldExpand" format="boolean" />
+        <attr name="tab_textAllCaps" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiSelectionSpinner">
+        <attr name="spinner_entries" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="RangeSeekBar">
+        <attr name="rsb_absoluteMinValue" format="integer|float" />
+        <attr name="rsb_absoluteMaxValue" format="integer|float" />
+        <attr name="rsb_singleThumb" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RemoteImageView">
+        <attr name="android:indeterminateDrawable" />
+        <attr name="errorDrawable" format="string"/>
+    </declare-styleable>
+
+</resources>
