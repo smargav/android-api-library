@@ -4,7 +4,8 @@ Developers can save lot of time by using these readymade classes in their projec
 ### Features:
 
 1. Utility class for Shared Preferences based on Gson. `PreferencesUtil` makes serializing/deserializing Objects into Shared preferences easy.
-* AppLogger - A logger wrapper on top of Microlog4android. Just initialize AppLogger in your Application class using `init` and use the Singleton instance everywhere.
+* AppLogger - A logger wrapper on top of Microlog4android. Just initialize AppLogger in your Application class using `init` and use the Singleton instance everywhere. 
+Eg: in Application.onCreate() `AppLogger.init(this, "folderinsdcard", AlarmManager.INTERVAL_DAY * 7);`
 * WebSession - A wrapper class that uses OkHttp library to make GET/POST class. No need to write boilerplate code.
 * ProgressAsyncTask - An AsyncTask with ProgressDialog. This is handly when you want to make Network calls in Async Task and show a interdeterminate dialog to user.
 * RemoteImageLoader - Dumped the classes from an Open Source project [Used for convenience]
