@@ -22,14 +22,17 @@ Eg: in Application.onCreate() `AppLogger.init(this, "folderinsdcard", AlarmManag
 ### Usage
  
 Add maven repo in your `build.gradle` file
-    maven {url 'https://github.com/smargav/android-api-library/raw/maven-repo/dist'}
+   
+   `maven {url 'https://github.com/smargav/android-api-library/raw/maven-repo/dist'}`
 
 and add 
 
-dependencies {
-    compile('com.smargav:api:1.0@aar') {
+`dependencies {
+   
+   compile('com.smargav:api:1.0@aar') {
         transitive = true
     }
 }
+`
 
 
