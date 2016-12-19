@@ -23,8 +23,10 @@ Eg: in Application.onCreate() `AppLogger.init(this, "folderinsdcard", AlarmManag
  
 Add maven repo in your `build.gradle` file
    
-    maven {url 'https://github.com/smargav/android-api-library/raw/maven-repo/dist'}
-
+    repositories {
+       maven {url 'https://github.com/smargav/android-api-library/raw/maven-repo/dist'}       
+    }
+    
 and add 
 
     dependencies {
