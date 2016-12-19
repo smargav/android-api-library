@@ -34,11 +34,10 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.smargav.api.R;
 
-public class CircleImageView extends ImageView {
+public class CircleImageView extends RemoteImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
@@ -76,18 +75,17 @@ public class CircleImageView extends ImageView {
     private boolean mSetupPending;
     private boolean mBorderOverlay;
 
-    public CircleImageView(Context context) {
-        super(context);
-
-        init();
-    }
+//    public CircleImageView(Context context) {
+//        super(context);
+//        init();
+//    }
 
     public CircleImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     public CircleImageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+        super(context, attrs);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0);
 

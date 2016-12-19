@@ -279,6 +279,32 @@ public class Utils {
         dialog.show();
     }
 
+    public static void showNonCancelablePrompt(final Activity ctx, String title, String message,
+                                               OnClickListener listener, String[] buttons) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        View customTitleView = ctx.getLayoutInflater().inflate(R.layout.dialog_title, null);
+        TextView titleText = ((TextView) customTitleView.findViewById(R.id.dialog_title));
+        titleText.setText(title);
+        builder.setCustomTitle(customTitleView).setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton(buttons[0], listener);
+        if (buttons.length == 2) {
+            builder.setNegativeButton(buttons[1], listener);
+        }
+        if (buttons.length == 3) {
+            builder.setNeutralButton(buttons[2], listener);
+        }
+
+        final Dialog dialog = builder.create();
+        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                //dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
     public static void showDobDialog(final Activity ctx, final TextView field, LocalDate startYear,
                                      final LocalDate fromYears, final LocalDate toYears) {
 
