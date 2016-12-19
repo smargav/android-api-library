@@ -40,6 +40,10 @@ public class BaseAdapter2<T> extends BaseAdapter {
         return objects.get(position);
     }
 
+    public T getItemAt(int position) {
+        return (T)objects.get(position);
+    }
+
     @Override
     public long getItemId(int position) {
         return position;
