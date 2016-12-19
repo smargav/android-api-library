@@ -28,7 +28,6 @@ Add maven repo in your `build.gradle` file
 and add 
 
    dependencies {
-   
       compile('com.smargav:api:1.0@aar') {
           transitive = true
       }
