@@ -1,6 +1,7 @@
 package com.smargav.api.logger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 
@@ -12,7 +13,9 @@ import com.google.code.microlog4android.format.PatternFormatter;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings(value = {"rawtypes"})
 public class AppLogger {
@@ -20,13 +23,14 @@ public class AppLogger {
     private Logger logger = LoggerFactory.getLogger();
     private File logFile;
 
-    private String RELATIVE_LOG_DIR;
+    private String relativeLogDirPath;
     private long purgeDuration;
     private FileAppender fileAppender;
 
     private static boolean isInitialized = false;
 
     private static AppLogger INSTANCE;
+    private File mSdCardLogFolder;
 
     public static boolean init(Context ctx, String logDir, long purgeDuration) {
         if (INSTANCE == null) {
@@ -43,7 +47,7 @@ public class AppLogger {
     }
 
     private AppLogger(Context ctx, String logDir, long purgeDuration) {
-        RELATIVE_LOG_DIR = logDir;
+        relativeLogDirPath = logDir;
         this.purgeDuration = purgeDuration;
         initLogger(ctx);
     }
@@ -56,30 +60,30 @@ public class AppLogger {
 
         try {
 
-            File mSdCardLogFile = null;
+            mSdCardLogFolder = null;
             String externalStorageState = Environment.getExternalStorageState();
             if (externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
                 File externalStorageDirectory = getExternalStorageDirectory(ctx);
                 if (externalStorageDirectory != null) {
-                    mSdCardLogFile = new File(externalStorageDirectory, RELATIVE_LOG_DIR);
+                    mSdCardLogFolder = new File(externalStorageDirectory, relativeLogDirPath);
                 }
             }
 
-            if (mSdCardLogFile == null) {
+            if (mSdCardLogFolder == null) {
                 Log.e("AppLogger", "Unable to initialze the Log File Appeneder");
                 return;
             }
 
-            if (!mSdCardLogFile.exists()) {
-                mSdCardLogFile.mkdirs();
+            if (!mSdCardLogFolder.exists()) {
+                mSdCardLogFolder.mkdirs();
             }
 
-            purgeLogs(mSdCardLogFile);
+            purgeLogs(mSdCardLogFolder);
 
             long date = System.currentTimeMillis();
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd");
-            String logFilePath = new File(mSdCardLogFile, dateFormat.format(date) + "_log.txt").getAbsolutePath();
+            String logFilePath = new File(mSdCardLogFolder, dateFormat.format(date) + "_log.txt").getAbsolutePath();
 
             fileAppender = new FileAppender();
             fileAppender.setFormatter(new LogFormatter());
@@ -119,7 +123,7 @@ public class AppLogger {
             if (sdCard.exists() && sdCard.canWrite()) {
                 externalStorageDirectory = sdCard;
                 return externalStorageDirectory;
-            }else{
+            } else {
                 externalStorageDirectory = Environment
                         .getExternalStorageDirectory();
             }
@@ -276,4 +280,18 @@ public class AppLogger {
         return "SGV [" + c.getSimpleName() + "] ";
     }
 
+    public void sendLogsAsEmail(String subject, String emailContent, Context context, String... mailIds) {
+        List<String> attachment = new ArrayList<String>();
+
+        if (mSdCardLogFolder != null && mSdCardLogFolder.exists()) {
+            for (File file : mSdCardLogFolder.listFiles()) {
+                attachment.add(file.getAbsolutePath());
+            }
+        }
+
+        Intent emailIntent = SuperLogger.Email.getEmailIntent(mailIds, subject,
+                emailContent, attachment);
+        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(emailIntent);
+    }
 }
