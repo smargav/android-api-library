@@ -42,13 +42,8 @@ version = '1.0'
 uploadArchives {
     repositories {
         mavenDeployer {
-<<<<<<< HEAD
             //repository(url: "file:///${System.properties['user.home']}/.m2/repository")
             repository(url: "file:///Users/amu/Work/Code/Smargav/libs/api/dist")
-=======
-            repository(url: "file:///${System.properties['user.home']}/.m2/repository")
-            //repository(url: "file:///Users/amu/Work/Code/Smargav/libs/api/dist")
->>>>>>> origin/master
         }
     }
 }
