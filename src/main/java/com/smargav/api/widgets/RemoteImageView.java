@@ -233,6 +233,14 @@ public class RemoteImageView extends ImageView {
         this.imageUrl = imageUrl;
     }
 
+    public void setImageUrl(String imageUrl, boolean forceRefresh) {
+        this.imageUrl = imageUrl;
+
+        if(forceRefresh){
+            imageLoader.getImageCache().remove(imageUrl);
+        }
+    }
+
     public void setImageUrl(String imageUrl, Drawable errorDrawable) {
         this.imageUrl = imageUrl;
         this.errorDrawable = errorDrawable;
