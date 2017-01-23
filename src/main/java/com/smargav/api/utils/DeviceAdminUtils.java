@@ -1,11 +1,11 @@
 package com.smargav.api.utils;
 
-import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
+import com.smargav.api.logger.AppLogger;
 
 public class DeviceAdminUtils {
 	public static <T> boolean isAppAdmin(Context context, Class<T> t) {
@@ -15,18 +15,47 @@ public class DeviceAdminUtils {
 		return dpm.isAdminActive(adminComponent);
 	}
 
-	public static <T> Intent enableDeviceAdmin(Activity activity, Class<T> t) {
+	public static <T> Intent enableDeviceAdmin(Context context, Class<T> t) {
 
 		try {
 			Intent intent = new Intent(
 					DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
 			intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-					new ComponentName(activity, t));
+					new ComponentName(context, t));
 			intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
-					"Ask your Employer ");
+					"Enable device admin");
 			return intent;
 		} catch (Exception e) {
-			Log.w("DEVICEADMIN", "Exception hwile enabling", e);
+			AppLogger.e(DeviceAdminUtils.class, e);
+		}
+
+		return null;
+	}
+
+	public static <T> Intent enableDeviceAdmin(Context context, Class<T> t, String explanation) {
+
+		try {
+			Intent intent = new Intent(
+					DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+			intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+					new ComponentName(context, t));
+			intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+					explanation);
+			return intent;
+		} catch (Exception e) {
+			AppLogger.e(DeviceAdminUtils.class, e);
+		}
+
+		return null;
+	}
+
+	public static <T> Intent disableDeviceAdmin(Context context, Class<T> t) {
+
+		try {
+			DevicePolicyManager dpm = (DevicePolicyManager)context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+			dpm.removeActiveAdmin(new ComponentName(context, t));
+		} catch (Exception e) {
+			AppLogger.e(DeviceAdminUtils.class, e);
 		}
 
 		return null;

@@ -253,6 +253,44 @@ public class WebSession {
         return post(request, authenticator);
     }
 
+    public String post(String url, Map<String, String> params, Authenticator authenticator, Map<String, String> headers) throws IOException {
+        FormEncodingBuilder formBody = new FormEncodingBuilder();
+
+        for (String key : params.keySet()) {
+            formBody.add(key, params.get(key));
+        }
+
+        RequestBody body = formBody.build();
+        Request.Builder builder = new Builder();
+        for (String key : headers.keySet()) {
+            builder.addHeader(key, headers.get(key));
+        }
+        builder.url(url).post(body);
+        Request request = builder.build();
+
+
+        return post(request, authenticator);
+    }
+
+    public String put(String url, Map<String, String> params, Authenticator authenticator, Map<String, String> headers) throws IOException {
+        FormEncodingBuilder formBody = new FormEncodingBuilder();
+
+        for (String key : params.keySet()) {
+            formBody.add(key, params.get(key));
+        }
+
+        RequestBody body = formBody.build();
+        Request.Builder builder = new Builder();
+        for (String key : headers.keySet()) {
+            builder.addHeader(key, headers.get(key));
+        }
+        builder.url(url).put(body);
+        Request request = builder.build();
+
+
+        return post(request, authenticator);
+    }
+
     public Response getLastCallResponse() {
         return lastCallResponse;
     }

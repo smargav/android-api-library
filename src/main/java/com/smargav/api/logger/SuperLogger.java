@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-class SuperLogger {
+public class SuperLogger {
     private static List<String> attachments;
     private static String email;
 
