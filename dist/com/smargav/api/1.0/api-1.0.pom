@@ -34,13 +34,13 @@
     <dependency>
       <groupId>com.j256.ormlite</groupId>
       <artifactId>ormlite-android</artifactId>
-      <version>+</version>
+      <version>4.48</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.j256.ormlite</groupId>
       <artifactId>ormlite-core</artifactId>
-      <version>+</version>
+      <version>4.48</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
