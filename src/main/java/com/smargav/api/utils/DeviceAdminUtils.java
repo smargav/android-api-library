@@ -49,7 +49,7 @@ public class DeviceAdminUtils {
 		return null;
 	}
 
-	public static <T> Intent disableDeviceAdmin(Context context, Class<T> t) {
+	public static <T> void disableDeviceAdmin(Context context, Class<T> t) {
 
 		try {
 			DevicePolicyManager dpm = (DevicePolicyManager)context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -58,7 +58,6 @@ public class DeviceAdminUtils {
 			AppLogger.e(DeviceAdminUtils.class, e);
 		}
 
-		return null;
 	}
 
 }
