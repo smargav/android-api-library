@@ -89,16 +89,6 @@ public class Utils {
     }
 
     public static void showToast(Context ctx, int message) {
-        //Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
-//        Toast toast = Toast.makeText(ctx, message, Toast.LENGTH_LONG);
-//        toast.setGravity(Gravity.CENTER, 0, 0);
-//        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-//        if (v != null) {
-//            v.setGravity(Gravity.CENTER);
-//            v.setTextSize(18);
-//        }
-//        toast.show();
-
         showToast(ctx, ctx.getString(message));
     }
 
@@ -252,7 +242,6 @@ public class Utils {
     }
 
 
-
     public static void showNonCancelablePrompt(final Activity ctx, String title, String message,
                                                OnClickListener listener, int[] buttons) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
@@ -308,8 +297,7 @@ public class Utils {
     public static void showDobDialog(final Activity ctx, final TextView field, LocalDate startYear,
                                      final LocalDate fromYears, final LocalDate toYears) {
 
-        // Calendar mcurrentDate = Calendar.getInstance();
-        // mcurrentDate.setTime(startYear);
+
         DateTime startOfDay = startYear.toDateTimeAtStartOfDay();
         int mYear = startOfDay.getYear();
         int mMonth = startOfDay.getMonthOfYear() - 1;
@@ -552,7 +540,6 @@ public class Utils {
         form.addValidates(validate);
         return validate;
     }
-
 
 
 }

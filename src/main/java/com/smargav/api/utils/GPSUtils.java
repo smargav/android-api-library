@@ -1,9 +1,7 @@
 package com.smargav.api.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -14,17 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.provider.Settings;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.maps.model.LatLng;
 import com.smargav.api.logger.AppLogger;
 import com.smargav.api.net.WebSession;
 
@@ -35,7 +22,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,43 +32,6 @@ import java.util.Map;
  * Created by Amit S on 15/10/15.
  */
 public class GPSUtils {
-    public static LatLng getLocationFromString(Context ctx, String address)
-            throws Exception {
-        if (Geocoder.isPresent()) {
-            Geocoder geocoder = new Geocoder(ctx, Locale.ENGLISH);
-            List addresses = null;
-            try {
-                addresses = geocoder.getFromLocationName(address, 1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if ((addresses != null) && (addresses.size() > 0)) {
-                Address addr = (Address) addresses.get(0);
-                LatLng l = new LatLng(addr.getLatitude(), addr.getLongitude());
-                return l;
-            }
-        }
-
-        WebSession session = new WebSession();
-        String url =
-                "http://maps.google.com/maps/api/geocode/json?address="
-                        + URLEncoder.encode(address, "UTF-8")
-                        + "&ka&sensor=false";
-        try {
-            String response = session.get(url);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject = new JSONObject(response);
-            double lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
-
-            double lat = ((JSONArray) jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
-
-            return new LatLng(lat, lng);
-        } catch (Exception e) {
-            AppLogger.e(GPSUtils.class, new StringBuilder().append("Error Geocoding - ").append(e.getLocalizedMessage()).toString());
-        }
-
-        return null;
-    }
 
     public static Address getStringFromLocation(Context ctx, double lat, double lng)
             throws Exception {
@@ -210,25 +159,6 @@ public class GPSUtils {
         }
     }
 
-    public static LatLng getLocationFromAddress(Context ctx, String strAddress) {
-        Geocoder coder = new Geocoder(ctx);
-
-        LatLng p1 = null;
-        try {
-            List address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return null;
-            }
-            Address location = (Address) address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            return new LatLng(location.getLatitude(), location.getLongitude());
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
     public static void turnGPSOn(Context ctx) {
 
         if (!canToggleGPS(ctx)) {
@@ -284,59 +214,6 @@ public class GPSUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    // ***** END_TRIP CODE: SREEDEVI ******************/
-
-    public static void showGpsEnablePrompt(final Activity context, GoogleApiClient.ConnectionCallbacks listener, GoogleApiClient.OnConnectionFailedListener failed) {
-
-        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(listener)
-                .addOnConnectionFailedListener(failed).build();
-        googleApiClient.connect();
-
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(30 * 1000);
-        locationRequest.setFastestInterval(5 * 1000);
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-
-        //**************************
-        builder.setAlwaysShow(true); //this is the key ingredient
-        //**************************
-
-        PendingResult<LocationSettingsResult> result =
-                LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
-        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
-            @Override
-            public void onResult(LocationSettingsResult result) {
-                final Status status = result.getStatus();
-                final LocationSettingsStates state = result.getLocationSettingsStates();
-                switch (status.getStatusCode()) {
-                    case LocationSettingsStatusCodes.SUCCESS:
-                        // All location settings are satisfied. The client can initialize location
-                        // requests here.
-                        break;
-                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        // Location settings are not satisfied. But could be fixed by showing the user
-                        // a dialog.
-                        try {
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            status.startResolutionForResult(
-                                    context, 1000);
-                        } catch (IntentSender.SendIntentException e) {
-                            // Ignore the error.
-                        }
-                        break;
-                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        // Location settings are not satisfied. However, we have no way to fix the
-                        // settings so we won't show the dialog.
-                        break;
-                }
-            }
-        });
     }
 
     public static boolean isGpsEnabled(Context ctx) {
