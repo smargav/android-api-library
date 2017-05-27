@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -25,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.smargav.api.R;
@@ -419,6 +421,31 @@ public class Utils {
         }
 
         mDatePicker.show();
+    }
+
+    public static void showTimeDialog(Context ctx, final TextView textView) {
+        LocalDate ld = null;
+        if (textView.getTag() != null) {
+            ld = (LocalDate) textView.getTag();
+        } else {
+            ld = LocalDate.now();
+        }
+
+        DateTime startOfDay = DateTime.now();
+        int mH = startOfDay.getHourOfDay();
+        int mM = startOfDay.getMinuteOfDay();
+
+        TimePickerDialog mTimePicker = new TimePickerDialog(ctx, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hh, int mm) {
+                textView.setTag(hh * 60 * 60 * 1000 + mm * 60 * 1000);
+                textView.setText(hh + ":" + mm);
+            }
+        }, mH, mM, true);
+
+        mTimePicker.setTitle("Select Time");
+
+        mTimePicker.show();
     }
 
     public static boolean isAppInFG(Context context) {
