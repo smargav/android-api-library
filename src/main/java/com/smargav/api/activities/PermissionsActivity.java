@@ -10,7 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.smargav.api.R;
-import com.smargav.api.utils.Utils;
+import com.smargav.api.utils.DialogUtils;
 
 /**
  * Utility class to request for all the required permissions in advance when the App starts.
@@ -73,7 +73,7 @@ public class PermissionsActivity extends AppCompatActivity {
         }
 
         if (!allGranted) {
-            Utils.showNonCancelablePrompt(this, "Error", "Please grant all permissions else App cannot be used ", new DialogInterface.OnClickListener() {
+            DialogUtils.showNonCancelablePrompt(this, "Error", "Please grant all permissions else App cannot be used ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     startRuntimePerms();

@@ -186,7 +186,7 @@ public class WebSession {
 
             String parameterValue = params.get(key);
 
-            if (StringUtils.isNoneBlank(parameterValue)) {
+            if (StringUtils.isNotBlank(parameterValue)) {
                 parameterValue = URLEncoder.encode(parameterValue,
                         "UTF-8");
             }
@@ -327,7 +327,7 @@ public class WebSession {
         }
     }
 
-    private byte[] copressData(String body) throws IOException {
+    private byte[] compressData(String body) throws IOException {
         byte[] data = body.getBytes("UTF-8");
         ByteArrayOutputStream arr = new ByteArrayOutputStream();
         OutputStream zipper = new GZIPOutputStream(arr);
@@ -421,7 +421,7 @@ public class WebSession {
                 contentLength = request.body().contentLength();
                 content = bodyToString(request);
             }
-            AppLogger.i(getClass(), "Request: " + request.url() + " Content-Length: " + contentLength);
+            AppLogger.d(getClass(), "Request: " + request.url() + " Content-Length: " + contentLength);
             AppLogger.d(getClass(), "Params: " + content);
 
             Response response = chain.proceed(request);
