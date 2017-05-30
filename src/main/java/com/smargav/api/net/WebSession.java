@@ -100,7 +100,7 @@ public class WebSession {
         builder.header("Content-Encoding", "gzip");
 
         // Compress data.
-        byte[] data = copressData(json);
+        byte[] data = compressData(json);
 
         RequestBody body = RequestBody.create(JSON, data);
         builder.url(url).post(body);
