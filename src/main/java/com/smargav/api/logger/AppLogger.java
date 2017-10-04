@@ -20,6 +20,7 @@ import java.util.List;
 @SuppressWarnings(value = {"rawtypes"})
 public class AppLogger {
 
+    public static boolean DEBUG = false;
     private Logger logger = LoggerFactory.getLogger();
     private File logFile;
 
@@ -155,7 +156,9 @@ public class AppLogger {
     public void error(Class c, String msg) {
         try {
             String tag = getClassName(c);
-            Log.e(tag, msg);
+            if(DEBUG) {
+                Log.e(tag, msg);
+            }
             checkFile();
             if (logger != null)
                 logger.error(tag + ": " + msg);
@@ -167,7 +170,9 @@ public class AppLogger {
     public void error(Class c, Throwable e) {
         try {
             String tag = getClassName(c);
-            Log.e(tag, e.getMessage(), e);
+            if(DEBUG) {
+                Log.e(tag, e.getMessage(), e);
+            }
             checkFile();
             if (logger != null)
                 logger.error(tag + ": " + e.getLocalizedMessage(), e);
@@ -180,7 +185,9 @@ public class AppLogger {
     public void error(Class c, String msg, Throwable thr) {
         try {
             String tag = getClassName(c);
-            Log.e(tag, msg, thr);
+            if(DEBUG) {
+                Log.e(tag, msg, thr);
+            }
             checkFile();
             if (logger != null)
                 logger.error(tag + ": " + msg);
@@ -191,7 +198,9 @@ public class AppLogger {
 
     public void debug(Class c, String msg) {
         String tag = getClassName(c);
-        Log.d(tag, msg);
+        if(DEBUG) {
+            Log.d(tag, msg);
+        }
         if (logger != null)
             logger.debug(tag + " - " + msg);
     }
@@ -199,7 +208,9 @@ public class AppLogger {
     public void warn(Class c, String msg) {
         try {
             String tag = getClassName(c);
-            Log.w(tag, msg);
+            if(DEBUG) {
+                Log.w(tag, msg);
+            }
             checkFile();
             if (logger != null)
                 logger.warn(tag + " - " + msg);
@@ -211,7 +222,9 @@ public class AppLogger {
     public void info(Class c, String msg) {
         try {
             String tag = getClassName(c);
-            Log.i(tag, msg);
+            if(DEBUG) {
+                Log.i(tag, msg);
+            }
             checkFile();
             if (logger != null)
                 logger.info(tag + " - " + msg);
