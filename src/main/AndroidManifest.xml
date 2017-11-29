@@ -3,6 +3,9 @@
 
     <application>
 
+        <activity android:name=".logger.LogReaderScreen" />
+        <activity android:name=".simplecropimage.CropImage" />
+        <activity android:name=".simplecropimage.MonitoredActivity" />
     </application>
 
 </manifest>

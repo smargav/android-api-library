@@ -156,7 +156,7 @@ public class AppLogger {
     public void error(Class c, String msg) {
         try {
             String tag = getClassName(c);
-            if(DEBUG) {
+            if (DEBUG) {
                 Log.e(tag, msg);
             }
             checkFile();
@@ -170,7 +170,7 @@ public class AppLogger {
     public void error(Class c, Throwable e) {
         try {
             String tag = getClassName(c);
-            if(DEBUG) {
+            if (DEBUG) {
                 Log.e(tag, e.getMessage(), e);
             }
             checkFile();
@@ -185,7 +185,7 @@ public class AppLogger {
     public void error(Class c, String msg, Throwable thr) {
         try {
             String tag = getClassName(c);
-            if(DEBUG) {
+            if (DEBUG) {
                 Log.e(tag, msg, thr);
             }
             checkFile();
@@ -198,9 +198,10 @@ public class AppLogger {
 
     public void debug(Class c, String msg) {
         String tag = getClassName(c);
-        if(DEBUG) {
-            Log.d(tag, msg);
-        }
+
+        //if (DEBUG) {
+        Log.d(tag, msg);
+        //}
         if (logger != null)
             logger.debug(tag + " - " + msg);
     }
@@ -208,7 +209,7 @@ public class AppLogger {
     public void warn(Class c, String msg) {
         try {
             String tag = getClassName(c);
-            if(DEBUG) {
+            if (DEBUG) {
                 Log.w(tag, msg);
             }
             checkFile();
@@ -222,7 +223,7 @@ public class AppLogger {
     public void info(Class c, String msg) {
         try {
             String tag = getClassName(c);
-            if(DEBUG) {
+            if (DEBUG) {
                 Log.i(tag, msg);
             }
             checkFile();
@@ -244,7 +245,7 @@ public class AppLogger {
             File[] list = logDir.listFiles();
             // if file is older than 100 days delete.
             for (File file : list) {
-                if (file.lastModified() < purgeDuration) {
+                if (file.lastModified() < System.currentTimeMillis() + purgeDuration) {
                     file.delete();
                 }
             }
