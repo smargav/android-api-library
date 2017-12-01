@@ -308,7 +308,7 @@ public class AppLogger {
             }
         }
 
-        Intent emailIntent = SuperLogger.Email.getEmailIntent(mailIds, subject,
+        Intent emailIntent = LogsMailer.Email.getEmailIntent(mailIds, subject,
                 emailContent, attachment);
         emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(emailIntent);
