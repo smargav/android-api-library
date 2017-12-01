@@ -21,7 +21,6 @@ public class UnCaughtException implements UncaughtExceptionHandler {
 
     public interface UnCaughtExceptionListener {
         public List<String> getAttachments();
-
         public String getEmail();
     }
 
@@ -117,7 +116,7 @@ public class UnCaughtException implements UncaughtExceptionHandler {
                 email = listener.getEmail();
 
             }
-            context.startActivity(SuperLogger.getEmailIntent(report.toString(), context));
+            context.startActivity(LogsMailer.appCrashEmailIntent(report.toString(), context));
             System.exit(2);
         } catch (Exception ignore) {
             AppLogger.e(getClass(), "Error while sending error e-mail", ignore);

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by amu on 13/05/16.
  */
-public class BaseAdapter2<T> extends BaseAdapter {
+public abstract class BaseAdapter2<T> extends BaseAdapter {
 
     private Context context;
     private List<T> objects;
@@ -41,7 +41,7 @@ public class BaseAdapter2<T> extends BaseAdapter {
     }
 
     public T getItemAt(int position) {
-        return (T)objects.get(position);
+        return (T) objects.get(position);
     }
 
     @Override
@@ -49,12 +49,16 @@ public class BaseAdapter2<T> extends BaseAdapter {
         return position;
     }
 
+    public abstract void bindView(View view);
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null && layout != 0) {
             convertView = View.inflate(context, layout, null);
-            return convertView;
+            //return convertView;
         }
+
+        bindView(convertView);
         return convertView;
     }
 }

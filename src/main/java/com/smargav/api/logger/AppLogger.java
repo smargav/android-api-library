@@ -33,9 +33,13 @@ public class AppLogger {
     private static AppLogger INSTANCE;
     private File mSdCardLogFolder;
 
-    public static boolean init(Context ctx, String logDir, long purgeDuration) {
+    public static boolean init(Context ctx, String logDir, long purgeDurationInMillis) {
+        return init(ctx, logDir, purgeDurationInMillis, Level.INFO);
+    }
+
+    public static boolean init(Context ctx, String logDir, long purgeDurationInMillis, Level loggingLevel) {
         if (INSTANCE == null) {
-            INSTANCE = new AppLogger(ctx, logDir, purgeDuration);
+            INSTANCE = new AppLogger(ctx, logDir, purgeDurationInMillis, loggingLevel);
         }
         return isInitialized;
     }
@@ -47,17 +51,17 @@ public class AppLogger {
         return INSTANCE;
     }
 
-    private AppLogger(Context ctx, String logDir, long purgeDuration) {
+    private AppLogger(Context ctx, String logDir, long purgeDurationInMillis, Level level) {
         relativeLogDirPath = logDir;
-        this.purgeDuration = purgeDuration;
-        initLogger(ctx);
+        this.purgeDuration = purgeDurationInMillis;
+        initLogger(ctx, level);
     }
 
     private AppLogger() {
 
     }
 
-    private void initLogger(Context ctx) {
+    private void initLogger(Context ctx, Level level) {
 
         try {
 
@@ -94,7 +98,7 @@ public class AppLogger {
             logFile = fileAppender.getLogFile();
 
             logger.addAppender(fileAppender);
-            logger.setLevel(Level.INFO);
+            logger.setLevel(level);
 
 
             String versionName = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionName;
@@ -160,8 +164,9 @@ public class AppLogger {
                 Log.e(tag, msg);
             }
             checkFile();
-            if (logger != null)
+            if (logger != null) {
                 logger.error(tag + ": " + msg);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -303,7 +308,7 @@ public class AppLogger {
             }
         }
 
-        Intent emailIntent = SuperLogger.Email.getEmailIntent(mailIds, subject,
+        Intent emailIntent = LogsMailer.getEmailIntent(mailIds, null, subject,
                 emailContent, attachment);
         emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(emailIntent);
