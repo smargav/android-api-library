@@ -49,7 +49,7 @@ public abstract class BaseAdapter2<T> extends BaseAdapter {
         return position;
     }
 
-    public abstract void bindView(View view);
+    public abstract View bindView(View view, int position);
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -57,8 +57,10 @@ public abstract class BaseAdapter2<T> extends BaseAdapter {
             convertView = View.inflate(context, layout, null);
             //return convertView;
         }
-
-        bindView(convertView);
+        if (convertView != null) {
+            convertView.setTag(getItem(position));
+        }
+        convertView = bindView(convertView, position);
         return convertView;
     }
 }
