@@ -250,7 +250,7 @@ public class AppLogger {
             File[] list = logDir.listFiles();
             // if file is older than 100 days delete.
             for (File file : list) {
-                if (file.lastModified() < System.currentTimeMillis() + purgeDuration) {
+                if (file.lastModified() + purgeDuration < System.currentTimeMillis()) {
                     file.delete();
                 }
             }
