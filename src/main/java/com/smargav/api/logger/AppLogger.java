@@ -1,7 +1,6 @@
 package com.smargav.api.logger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 
@@ -13,9 +12,7 @@ import com.google.code.microlog4android.format.PatternFormatter;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @SuppressWarnings(value = {"rawtypes"})
 public class AppLogger {
@@ -32,6 +29,7 @@ public class AppLogger {
 
     private static AppLogger INSTANCE;
     private File mSdCardLogFolder;
+    private Level level;
 
     public static boolean init(Context ctx, String logDir, long purgeDurationInMillis) {
         return init(ctx, logDir, purgeDurationInMillis, Level.INFO);
@@ -85,21 +83,7 @@ public class AppLogger {
 
             purgeLogs(mSdCardLogFolder);
 
-            long date = System.currentTimeMillis();
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd");
-            String logFilePath = new File(mSdCardLogFolder, dateFormat.format(date) + "_log.txt").getAbsolutePath();
-
-            fileAppender = new FileAppender();
-            fileAppender.setFormatter(new LogFormatter());
-            fileAppender.setAppend(true);
-            fileAppender.setFileName(logFilePath);
-
-            logFile = fileAppender.getLogFile();
-
-            logger.addAppender(fileAppender);
-            logger.setLevel(level);
-
+            createLogFile(level);
 
             String versionName = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionName;
             int versionCode = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionCode;
@@ -113,6 +97,35 @@ public class AppLogger {
             System.out.println("ex: " + ex);
         }
 
+    }
+
+    private void createLogFile(Level level) {
+
+        try {
+            this.level = level;
+
+            long date = System.currentTimeMillis();
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd");
+            String logFilePath = new File(mSdCardLogFolder, dateFormat.format(date) + "_log.txt").getAbsolutePath();
+
+            fileAppender = new FileAppender();
+            fileAppender.setFormatter(new LogFormatter());
+            fileAppender.setAppend(true);
+            fileAppender.setFileName(logFilePath);
+
+            logFile = fileAppender.getLogFile();
+
+            logger.removeAllAppenders();
+            logger.addAppender(fileAppender);
+            logger.setLevel(level);
+
+            fileAppender.open();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected synchronized File getExternalStorageDirectory(Context mContext) {
@@ -153,6 +166,14 @@ public class AppLogger {
             if (!logFile.exists()) {
                 fileAppender.open();
             }
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd");
+
+            if (logFile.exists() && !logFile.getName().contains(dateFormat.format(new Date()))) {
+                AppLogger.e(getClass(), "Roll over file. New day.");
+                createLogFile(level);
+            }
+
         } catch (Exception e) {
         }
     }
@@ -299,18 +320,18 @@ public class AppLogger {
         return "SGV [" + c.getSimpleName() + "] ";
     }
 
-    public void sendLogsAsEmail(String subject, String emailContent, Context context, String... mailIds) {
-        List<String> attachment = new ArrayList<String>();
-
-        if (mSdCardLogFolder != null && mSdCardLogFolder.exists()) {
-            for (File file : mSdCardLogFolder.listFiles()) {
-                attachment.add(file.getAbsolutePath());
-            }
-        }
-
-        Intent emailIntent = LogsMailer.getEmailIntent(mailIds, null, subject,
-                emailContent, attachment);
-        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(emailIntent);
-    }
+//    public void sendLogsAsEmail(String subject, String emailContent, Context context, String... mailIds) {
+//        List<String> attachment = new ArrayList<String>();
+//
+//        if (mSdCardLogFolder != null && mSdCardLogFolder.exists()) {
+//            for (File file : mSdCardLogFolder.listFiles()) {
+//                attachment.add(file.getAbsolutePath());
+//            }
+//        }
+//
+//        Intent emailIntent = LogsMailer.getEmailIntent(mailIds, null, subject,
+//                emailContent, attachment);
+//        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(emailIntent);
+//    }
 }
