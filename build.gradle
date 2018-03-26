@@ -53,12 +53,12 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.appCompatLib"
     compile "com.android.support:support-v13:$rootProject.supportLib"
 
-    compile 'com.google.code.gson:gson:+'
+    compile "com.google.code.gson:gson:$rootProject.gsonLib"
 
-    compile 'joda-time:joda-time:+'
+    compile "joda-time:joda-time:$rootProject.jodaLib"
 
-    compile 'com.squareup.okio:okio:+'
-    compile 'com.squareup.okhttp:okhttp:+'
+    compile "com.squareup.okio:okio:$rootProject.okioLib"
+    compile "com.squareup.okhttp:okhttp:$rootProject.okhttpLib"
 
-    compile 'org.apache.commons:commons-lang3:+'
+    compile "org.apache.commons:commons-lang3:$rootProject.lang3Lib"
 }
