@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -37,7 +37,7 @@ android {
 }
 
 group = 'com.smargav'
-version = '1.3.8'
+version = "$rootProject.apiVersion"
 
 uploadArchives {
     repositories {
@@ -50,8 +50,8 @@ uploadArchives {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:+'
-    compile 'com.android.support:support-v13:+'
+    compile "com.android.support:appcompat-v7:$rootProject.appCompatLib"
+    compile "com.android.support:support-v13:$rootProject.supportLib"
 
     compile 'com.google.code.gson:gson:+'
 
