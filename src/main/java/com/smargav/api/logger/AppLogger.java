@@ -283,7 +283,7 @@ public class AppLogger {
     private static class LogFormatter extends PatternFormatter {
 
         public LogFormatter() {
-            setPattern("%d %c{1} [%P] %m %T");
+            setPattern("%d{3} %c{1} [%P] %m %T");
         }
 
         public String format(String clientID, String name, long time, Level level, Object message,
