@@ -37,7 +37,7 @@ android {
 }
 
 group = 'com.smargav'
-version = "$rootProject.apiVersion"
+version = "${rootProject.apiVersion}"
 
 uploadArchives {
     repositories {
@@ -50,15 +50,15 @@ uploadArchives {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:$rootProject.appCompatLib"
-    compile "com.android.support:support-v13:$rootProject.supportLib"
+    compile "com.android.support:appcompat-v7:${rootProject.appCompatLib}"
+    compile "com.android.support:support-v13:${rootProject.supportLib}"
 
-    compile "com.google.code.gson:gson:$rootProject.gsonLib"
+    compile "com.google.code.gson:gson:${rootProject.gsonLib}"
 
-    compile "joda-time:joda-time:$rootProject.jodaLib"
+    compile "joda-time:joda-time:${rootProject.jodaLib}"
 
-    compile "com.squareup.okio:okio:$rootProject.okioLib"
-    compile "com.squareup.okhttp:okhttp:$rootProject.okhttpLib"
+    compile "com.squareup.okio:okio:${rootProject.okioLib}"
+    compile "com.squareup.okhttp:okhttp:${rootProject.okhttpLib}"
 
-    compile "org.apache.commons:commons-lang3:$rootProject.lang3Lib"
+    compile "org.apache.commons:commons-lang3:${rootProject.lang3Lib}"
 }
