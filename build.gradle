@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'digital.wup.android-maven-publish'
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -18,18 +19,18 @@ android {
         }
     }
 
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/DEPENDENCIES'
-    }
+//    packagingOptions {
+//        exclude 'META-INF/LICENSE'
+//        exclude 'META-INF/LICENSE.txt'
+//        exclude 'META-INF/NOTICE'
+//        exclude 'META-INF/NOTICE.txt'
+//        exclude 'META-INF/DEPENDENCIES'
+//    }
 
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
+//    repositories {
+//        mavenCentral()
+//        mavenLocal()
+//    }
 
     lintOptions {
         abortOnError false
@@ -39,26 +40,41 @@ android {
 group = 'com.smargav'
 version = "${rootProject.apiVersion}"
 
-uploadArchives {
+publishing {
+    publications {
+        mavenAar(MavenPublication) {
+            from components.android
+        }
+
+    }
+
     repositories {
-        mavenDeployer {
-            repository(url: "file:///${System.properties['user.home']}/.m2/repository")
-            //repository(url: "file:///Users/amu/Work/Code/Smargav/libs/api/dist")
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url "file:///${System.properties['user.home']}/.m2/repository"
+        }
+
+        maven {
+            url "file:///Users/amu/Work/Code/Smargav/libs/api/dist"
+        }
+
+        maven {
+            url "file:///Users/amu/Work/Code/Smargav/libs/io-fieldx-artifacts-repo"
         }
     }
 }
 
+
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:${rootProject.appCompatLib}"
-    compile "com.android.support:support-v13:${rootProject.supportLib}"
+    implementation "com.android.support:appcompat-v7:${rootProject.appCompatLib}"
+    implementation "com.android.support:support-v13:${rootProject.supportLib}"
 
-    compile "com.google.code.gson:gson:${rootProject.gsonLib}"
+    implementation "com.google.code.gson:gson:${rootProject.gsonLib}"
 
-    compile "joda-time:joda-time:${rootProject.jodaLib}"
+    implementation "joda-time:joda-time:${rootProject.jodaLib}"
 
-    compile "com.squareup.okio:okio:${rootProject.okioLib}"
-    compile "com.squareup.okhttp:okhttp:${rootProject.okhttpLib}"
+    implementation "com.squareup.okio:okio:${rootProject.okioLib}"
+    implementation "com.squareup.okhttp:okhttp:${rootProject.okhttpLib}"
 
-    compile "org.apache.commons:commons-lang3:${rootProject.lang3Lib}"
+    implementation "org.apache.commons:commons-lang3:${rootProject.lang3Lib}"
 }
