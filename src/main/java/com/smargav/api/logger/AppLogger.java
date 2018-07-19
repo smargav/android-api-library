@@ -14,7 +14,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@SuppressWarnings(value = {"rawtypes"})
+
 public class AppLogger {
 
     public static boolean DEBUG = false;
@@ -32,10 +32,14 @@ public class AppLogger {
     private Level level;
 
     public static boolean init(Context ctx, String logDir, long purgeDurationInMillis) {
+        return init(ctx, new File(getExternalStorageDirectory(ctx), logDir), purgeDurationInMillis, Level.INFO);
+    }
+
+    public static boolean init(Context ctx, File logDir, long purgeDurationInMillis) {
         return init(ctx, logDir, purgeDurationInMillis, Level.INFO);
     }
 
-    public static boolean init(Context ctx, String logDir, long purgeDurationInMillis, Level loggingLevel) {
+    public static boolean init(Context ctx, File logDir, long purgeDurationInMillis, Level loggingLevel) {
         if (INSTANCE == null) {
             INSTANCE = new AppLogger(ctx, logDir, purgeDurationInMillis, loggingLevel);
         }
@@ -49,8 +53,8 @@ public class AppLogger {
         return INSTANCE;
     }
 
-    private AppLogger(Context ctx, String logDir, long purgeDurationInMillis, Level level) {
-        relativeLogDirPath = logDir;
+    private AppLogger(Context ctx, File logDir, long purgeDurationInMillis, Level level) {
+        mSdCardLogFolder = logDir;
         this.purgeDuration = purgeDurationInMillis;
         initLogger(ctx, level);
     }
@@ -63,26 +67,25 @@ public class AppLogger {
 
         try {
 
-            mSdCardLogFolder = null;
-            String externalStorageState = Environment.getExternalStorageState();
-            if (externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-                File externalStorageDirectory = getExternalStorageDirectory(ctx);
-                if (externalStorageDirectory != null) {
-                    mSdCardLogFolder = new File(externalStorageDirectory, relativeLogDirPath);
-                }
-            }
 
-            if (mSdCardLogFolder == null) {
-                Log.e("AppLogger", "Unable to initialze the Log File Appeneder");
-                return;
-            }
-
+//            String externalStorageState = Environment.getExternalStorageState();
+//            if (externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
+//                File externalStorageDirectory = getExternalStorageDirectory(ctx);
+//                if (externalStorageDirectory != null) {
+//                    mSdCardLogFolder = new File(externalStorageDirectory, relativeLogDirPath);
+//                }
+//            }
+//
+//            if (mSdCardLogFolder == null) {
+//                Log.e("AppLogger", "Unable to initialze the Log File Appeneder");
+//                return;
+//            }
+//
             if (!mSdCardLogFolder.exists()) {
                 mSdCardLogFolder.mkdirs();
             }
 
             purgeLogs(mSdCardLogFolder);
-
             createLogFile(level);
 
             String versionName = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).versionName;
@@ -90,6 +93,7 @@ public class AppLogger {
             String info = "App Version - " + versionName + " (" + versionCode + ")";
             i(AppLogger.class, "App start time -  " + new Date());
             i(AppLogger.class, info);
+            i(AppLogger.class, "Log file path: " + mSdCardLogFolder.getAbsolutePath());
 
             isInitialized = true;
 
@@ -128,7 +132,7 @@ public class AppLogger {
         }
     }
 
-    protected synchronized File getExternalStorageDirectory(Context mContext) {
+    public static synchronized File getExternalStorageDirectory(Context mContext) {
 
         File externalStorageDirectory = Environment
                 .getExternalStorageDirectory();
@@ -166,15 +170,8 @@ public class AppLogger {
             if (!logFile.exists()) {
                 fileAppender.open();
             }
-
-            //      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd");
-
-//            if (logFile.exists() && !logFile.getName().contains(dateFormat.format(new Date()))) {
-//                AppLogger.e(getClass(), "Roll over file. New day.");
-//                createLogFile(level);
-//            }
-
         } catch (Exception e) {
+
         }
     }
 
@@ -269,7 +266,6 @@ public class AppLogger {
         try {
 
             File[] list = logDir.listFiles();
-            // if file is older than 100 days delete.
             for (File file : list) {
                 if (file.lastModified() + purgeDuration < System.currentTimeMillis()) {
                     file.delete();
@@ -320,18 +316,4 @@ public class AppLogger {
         return "SGV [" + c.getSimpleName() + "] ";
     }
 
-//    public void sendLogsAsEmail(String subject, String emailContent, Context context, String... mailIds) {
-//        List<String> attachment = new ArrayList<String>();
-//
-//        if (mSdCardLogFolder != null && mSdCardLogFolder.exists()) {
-//            for (File file : mSdCardLogFolder.listFiles()) {
-//                attachment.add(file.getAbsolutePath());
-//            }
-//        }
-//
-//        Intent emailIntent = LogsMailer.getEmailIntent(mailIds, null, subject,
-//                emailContent, attachment);
-//        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(emailIntent);
-//    }
 }
