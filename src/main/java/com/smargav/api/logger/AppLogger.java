@@ -10,6 +10,8 @@ import com.google.code.microlog4android.LoggerFactory;
 import com.google.code.microlog4android.appender.FileAppender;
 import com.google.code.microlog4android.format.PatternFormatter;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -184,6 +186,7 @@ public class AppLogger {
             checkFile();
             if (logger != null) {
                 logger.error(tag + ": " + msg);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -197,8 +200,9 @@ public class AppLogger {
                 Log.e(tag, e.getMessage(), e);
             }
             checkFile();
-            if (logger != null)
-                logger.error(tag + ": " + e.getLocalizedMessage(), e);
+            if (logger != null) {
+                logger.error(ExceptionUtils.getStackTrace(e));
+            }
         } catch (Exception e1) {
             e1.printStackTrace();
         }

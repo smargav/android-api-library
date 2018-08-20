@@ -26,7 +26,7 @@ android {
 
 group = 'com.smargav'
 version = "${rootProject.apiVersion}"
-
+//./gradlew -p api/ clean assemble publish
 publishing {
     publications {
         mavenAar(MavenPublication) {

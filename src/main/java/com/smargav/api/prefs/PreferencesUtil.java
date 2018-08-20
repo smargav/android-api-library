@@ -8,6 +8,7 @@ import com.smargav.api.utils.GsonUtil;
 
 import java.lang.reflect.Type;
 import java.util.Date;
+import java.util.Set;
 
 public class PreferencesUtil {
 
@@ -100,6 +101,13 @@ public class PreferencesUtil {
     public static void remove(Context ctx, String key) {
         SharedPreferences prefs = getDefaultPrefs(ctx);
         prefs.edit().remove(key).commit();
+    }
+
+    public static void delete(Context ctx) {
+        Set<String> keys = getDefaultPrefs(ctx).getAll().keySet();
+        for (String s : keys) {
+            remove(ctx, s);
+        }
     }
 
 }
