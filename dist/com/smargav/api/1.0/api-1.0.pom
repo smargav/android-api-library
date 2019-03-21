@@ -57,7 +57,7 @@
     </dependency>
     <dependency>
       <groupId>com.google.android.gms</groupId>
-      <artifactId>play-services-location</artifactId>
+      <artifactId>play-services-recentLocation</artifactId>
       <version>+</version>
       <scope>compile</scope>
     </dependency>

@@ -1,5 +1,6 @@
 package com.smargav.api.net;
 
+import com.smargav.api.execptions.NetIOException;
 import com.smargav.api.logger.AppLogger;
 import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Credentials;
@@ -69,6 +70,11 @@ public class WebSession {
         this.connectionTimeout = connectionTimeout;
         client.setConnectTimeout(connectionTimeout, TimeUnit.SECONDS);
         client.setReadTimeout(readTimeout, TimeUnit.SECONDS);
+    }
+
+    public WebSession(OkHttpClient okHttpClient) {
+        this(NET_TIMEOUT);
+        client = okHttpClient;
     }
 
     public void set2gTimeOut() {

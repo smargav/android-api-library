@@ -46,12 +46,7 @@ public class DialogUtils {
         ((TextView) customTitleView.findViewById(R.id.dialog_title)).setText(title);
         builder.setCustomTitle(customTitleView).setMessage(message).setPositiveButton("OK", null);
         final Dialog dialog = builder.create();
-        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-            }
-        });
+
         dialog.show();
     }
 
@@ -77,16 +72,7 @@ public class DialogUtils {
                     }
                 });
         final Dialog dialog = builder.create();
-        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-                if (finish) {
-                    ctx.setResult(Activity.RESULT_OK);
-                    ctx.finish();
-                }
-            }
-        });
+
         dialog.show();
     }
 
@@ -105,12 +91,7 @@ public class DialogUtils {
         builder.setCustomTitle(customTitleView).setMessage(message).setPositiveButton("Yes", listener)
                 .setNegativeButton("No", listener);
         final Dialog dialog = builder.create();
-        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-            }
-        });
+
         dialog.show();
     }
 
@@ -136,12 +117,7 @@ public class DialogUtils {
         }
 
         final Dialog dialog = builder.create();
-        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-            }
-        });
+
         dialog.show();
     }
 
@@ -162,12 +138,7 @@ public class DialogUtils {
         }
 
         final Dialog dialog = builder.create();
-        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                dialog.dismiss();
-            }
-        });
+
         dialog.show();
     }
 
@@ -188,12 +159,7 @@ public class DialogUtils {
         }
 
         final Dialog dialog = builder.create();
-        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                //dialog.dismiss();
-            }
-        });
+
         dialog.show();
     }
 
@@ -214,12 +180,6 @@ public class DialogUtils {
         }
 
         final Dialog dialog = builder.create();
-        customTitleView.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                //dialog.dismiss();
-            }
-        });
         dialog.show();
     }
 
@@ -241,7 +201,7 @@ public class DialogUtils {
                         "Nov", "Dec"};
                 LocalDate c = new LocalDate(selectedyear, selectedmonth + 1, selectedday);
 
-                field.setText(c.toString(Utils.DATE_FORMATTER));
+                field.setText(c.toString(DateUtils.DATE_FORMATTER));
                 field.setTag(c.toDateTimeAtStartOfDay().getMillis());
 
             }
@@ -285,7 +245,7 @@ public class DialogUtils {
                         "Nov", "Dec"};
                 LocalDate selectedDate = new LocalDate(selectedyear, selectedmonth + 1, selectedday);
 
-                field.setText(selectedDate.toString(Utils.DATE_FORMATTER));
+                field.setText(selectedDate.toString(DateUtils.DATE_FORMATTER));
                 field.setTag(selectedDate.toDateTimeAtStartOfDay().getMillis());
 
             }
@@ -334,7 +294,7 @@ public class DialogUtils {
                                   int selectedday) {
 
                 LocalDate localDate = new LocalDate(selectedyear, selectedmonth + 1, selectedday);
-                textView.setText(localDate.toString(Utils.DATE_FORMATTER));
+                textView.setText(localDate.toString(DateUtils.DATE_FORMATTER));
                 textView.setTag(localDate);
                 textView.setError(null);
             }

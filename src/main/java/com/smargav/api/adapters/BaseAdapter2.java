@@ -1,4 +1,4 @@
-package com.smargav.api.utils;
+package com.smargav.api.adapters;
 
 import android.content.Context;
 import android.view.View;

@@ -3,6 +3,7 @@ package com.smargav.api.activities;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,17 +54,24 @@ public class PermissionsActivity extends AppCompatActivity {
             finish();
             return;
         }
-        startRuntimePerms();
+        ActivityCompat.requestPermissions(this, permissions, 100);
+
 
     }
 
-    private void startRuntimePerms() {
-        ActivityCompat.requestPermissions(this, permissions, 100);
+    public static boolean startRuntimePerms(Context context) {
+        if (!PermissionsActivity.hasAllRequiredPerms(context)) {
+            return false;
+        }
+        Intent intent = new Intent(context, PermissionsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        return true;
     }
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions, @NonNull int[] grantResults) {
 
         boolean allGranted = true;
         for (int i = 0; i < permissions.length; i++) {
@@ -76,7 +84,7 @@ public class PermissionsActivity extends AppCompatActivity {
             DialogUtils.showNonCancelablePrompt(this, "Error", "Please grant all permissions else App cannot be used ", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    startRuntimePerms();
+                    ActivityCompat.requestPermissions(PermissionsActivity.this, permissions, 100);
                 }
             }, new String[]{"OK"});
             return;
