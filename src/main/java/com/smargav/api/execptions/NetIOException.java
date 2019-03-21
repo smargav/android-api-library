@@ -1,4 +1,4 @@
-package com.smargav.api.net;
+package com.smargav.api.execptions;
 
 import java.io.IOException;
 

@@ -32,9 +32,4 @@
         <attr name="rsb_singleThumb" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="RemoteImageView">
-        <attr name="android:indeterminateDrawable" />
-        <attr name="errorDrawable" format="string"/>
-    </declare-styleable>
-
 </resources>

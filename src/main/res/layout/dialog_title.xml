@@ -10,19 +10,7 @@
         android:layout_centerVertical="true"
         android:padding="10dp"
         android:text="Dialog."
-        android:textColor="@android:color/black"
+        android:textColor="?android:attr/textColor"
         android:textSize="20sp" />
 
-    <ImageButton
-        android:id="@+id/dialog_close"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:background="@null"
-        android:padding="5dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_close" />
-
-</RelativeLayout><!-- From: file:/Users/amu/Work/Code/Smargav/Projects/libs/api/src/main/res/layout/dialog_title.xml -->
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.smargav.api.logger;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.annotation.Keep;
 import android.util.Log;
 
 import com.google.code.microlog4android.Level;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+@Keep
 public class AppLogger {
 
     public static boolean DEBUG = false;
@@ -69,20 +71,6 @@ public class AppLogger {
 
         try {
 
-
-//            String externalStorageState = Environment.getExternalStorageState();
-//            if (externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
-//                File externalStorageDirectory = getExternalStorageDirectory(ctx);
-//                if (externalStorageDirectory != null) {
-//                    mSdCardLogFolder = new File(externalStorageDirectory, relativeLogDirPath);
-//                }
-//            }
-//
-//            if (mSdCardLogFolder == null) {
-//                Log.e("AppLogger", "Unable to initialze the Log File Appeneder");
-//                return;
-//            }
-//
             if (!mSdCardLogFolder.exists()) {
                 mSdCardLogFolder.mkdirs();
             }

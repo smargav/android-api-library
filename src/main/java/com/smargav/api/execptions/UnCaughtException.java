@@ -1,4 +1,4 @@
-package com.smargav.api.logger;
+package com.smargav.api.execptions;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
+
+import com.smargav.api.logger.AppLogger;
+import com.smargav.api.logger.LogsMailer;
 
 import java.io.File;
 import java.io.PrintWriter;

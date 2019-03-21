@@ -17,9 +17,6 @@ public class NotificationUtils {
      */
     public static void createNotification(Context context, String title,
                                           String message, int notificationId, int icon) {
-//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-//                context).setSmallIcon(icon).setContentTitle(title)
-//                .setContentText(message).setAutoCancel(true);
 
         Bitmap icon1 = BitmapFactory.decodeResource(context.getResources(), icon);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(

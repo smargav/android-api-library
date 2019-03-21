@@ -78,16 +78,6 @@ public class PreferencesUtil {
         return prefs.edit().putLong(key, value).commit();
     }
 
-    public static boolean getBool(Context ctx, String key, boolean defaultValue) {
-        SharedPreferences prefs = getDefaultPrefs(ctx);
-        return prefs.getBoolean(key, defaultValue);
-    }
-
-    public static boolean putBool(Context ctx, String key, boolean value) {
-        SharedPreferences prefs = getDefaultPrefs(ctx);
-        return prefs.edit().putBoolean(key, value).commit();
-    }
-
     public static String getString(Context ctx, String key, String defaultValue) {
         SharedPreferences prefs = getDefaultPrefs(ctx);
         return prefs.getString(key, defaultValue);

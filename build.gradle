@@ -3,7 +3,6 @@ apply plugin: 'digital.wup.android-maven-publish'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
@@ -58,9 +57,7 @@ dependencies {
     implementation "com.android.support:support-v13:${rootProject.supportLib}"
 
     implementation "com.google.code.gson:gson:${rootProject.gsonLib}"
-
     implementation "joda-time:joda-time:${rootProject.jodaLib}"
-
     implementation "com.squareup.okio:okio:${rootProject.okioLib}"
     implementation "com.squareup.okhttp:okhttp:${rootProject.okhttpLib}"
 
