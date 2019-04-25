@@ -35,9 +35,9 @@ public class AppLogger {
     private File mSdCardLogFolder;
     private Level level;
 
-    public static boolean init(Context ctx, String logDir, long purgeDurationInMillis) {
-        return init(ctx, new File(getExternalStorageDirectory(ctx), logDir), purgeDurationInMillis, Level.INFO);
-    }
+//    public static boolean init(Context ctx, String logDir, long purgeDurationInMillis) {
+//        return init(ctx, new File(getExternalStorageDirectory(ctx), logDir), purgeDurationInMillis, Level.INFO);
+//    }
 
     public static boolean init(Context ctx, File logDir, long purgeDurationInMillis) {
         return init(ctx, logDir, purgeDurationInMillis, Level.INFO);

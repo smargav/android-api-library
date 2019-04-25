@@ -64,7 +64,6 @@ public class PermissionsActivity extends AppCompatActivity {
             return false;
         }
         Intent intent = new Intent(context, PermissionsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         return true;
     }

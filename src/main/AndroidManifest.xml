@@ -4,8 +4,7 @@
     <application>
 
         <activity android:name=".logger.LogReaderScreen" />
-        <activity android:name=".simplecropimage.CropImage" />
-        <activity android:name=".simplecropimage.MonitoredActivity" />
+        <activity android:name=".activities.PermissionsActivity" />
     </application>
 
 </manifest>
