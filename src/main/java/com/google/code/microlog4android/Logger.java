@@ -40,11 +40,11 @@ import java.util.List;
  * @since 0.1
  */
 public final class Logger {
-	private static final String TAG = "Microlog.Logger";
+	private static final String TAG = "SGV.Logger";
 
 	public static final Level DEFAULT_LOG_LEVEL = Level.DEBUG;
 
-	public static final String DEFAULT_CLIENT_ID = "Microlog";
+	public static final String DEFAULT_CLIENT_ID = "SGV";
 
 	private CommonLoggerRepository commonLoggerRepository = null;
 
