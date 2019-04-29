@@ -39,6 +39,10 @@ public class PreferencesUtil {
 
     public static <T> boolean put(Context context, String key, T obj) {
         SharedPreferences prefs = getDefaultPrefs(context);
+        if (obj == null) {
+            remove(context, key);
+            return true;
+        }
         String value = GsonUtil.gson.toJson(obj);
         return prefs.edit().putString(key, value).commit();
     }

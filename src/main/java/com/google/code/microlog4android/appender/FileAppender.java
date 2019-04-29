@@ -34,7 +34,7 @@ import java.lang.reflect.Method;
  * @author Dan Walkes
  */
 public class FileAppender extends AbstractAppender {
-    private static final String TAG = "SmargavLog.FileAppender";
+    private static final String TAG = "SGVLog.FileAppender";
 
     public static final String DEFAULT_FILENAME = "smargav_applog.txt";
 
@@ -82,7 +82,7 @@ public class FileAppender extends AbstractAppender {
             if (!logFile.exists()) {
                 if (!logFile.createNewFile()) {
                     Log.e(TAG, "Unable to create new log file");
-
+                    return;
                 }
             }
 
