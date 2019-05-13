@@ -25,7 +25,7 @@ import java.util.Date;
 public class AppLogger {
 
     public static boolean DEBUG = false;
-    private Logger logger = LoggerFactory.getLogger();
+    private Logger logger;
     private File logFile;
 
     private String relativeLogDirPath;
@@ -118,6 +118,7 @@ public class AppLogger {
 
             logFile = fileAppender.getLogFile();
 
+            logger = LoggerFactory.getLogger();
             logger.removeAllAppenders();
             logger.addAppender(fileAppender);
             logger.setLevel(level);
