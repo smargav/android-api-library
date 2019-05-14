@@ -25,7 +25,7 @@ import java.util.Date;
 public class AppLogger {
 
     public static boolean DEBUG = false;
-    private Logger logger = LoggerFactory.getLogger();
+    private Logger logger;
     private File logFile;
 
     private String relativeLogDirPath;
@@ -118,6 +118,7 @@ public class AppLogger {
 
             logFile = fileAppender.getLogFile();
 
+            logger = LoggerFactory.getLogger();
             logger.removeAllAppenders();
             logger.addAppender(fileAppender);
             logger.setLevel(level);
@@ -165,8 +166,7 @@ public class AppLogger {
 
     public static synchronized File getExternalStorageDirectory(Context mContext) {
 
-        File externalStorageDirectory = Environment
-                .getExternalStorageDirectory();
+        File externalStorageDirectory = Environment.getExternalStorageDirectory();
 
         try {
             final String rawExternalStorage = System.getenv("EXTERNAL_STORAGE");
@@ -177,8 +177,7 @@ public class AppLogger {
                 externalStorageDirectory = sdCard;
                 return externalStorageDirectory;
             } else {
-                externalStorageDirectory = Environment
-                        .getExternalStorageDirectory();
+                externalStorageDirectory = Environment.getExternalStorageDirectory();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,8 +247,7 @@ public class AppLogger {
                 Log.e(tag, msg, thr);
             }
             checkFile();
-            if (logger != null)
-                logger.error(tag + ": " + msg);
+            if (logger != null) logger.error(tag + ": " + msg);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -258,11 +256,10 @@ public class AppLogger {
     public void debug(Class c, String msg) {
         String tag = getClassName(c);
 
-        //if (DEBUG) {
-        Log.d(tag, msg);
-        //}
-        if (logger != null)
-            logger.debug(tag + " - " + msg);
+        if (DEBUG) {
+            Log.d(tag, msg);
+        }
+        if (logger != null) logger.debug(tag + " - " + msg);
     }
 
     public void warn(Class c, String msg) {
@@ -272,8 +269,7 @@ public class AppLogger {
                 Log.w(tag, msg);
             }
             checkFile();
-            if (logger != null)
-                logger.warn(tag + " - " + msg);
+            if (logger != null) logger.warn(tag + " - " + msg);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -286,8 +282,7 @@ public class AppLogger {
                 Log.i(tag, msg);
             }
             checkFile();
-            if (logger != null)
-                logger.info(tag + " - " + msg);
+            if (logger != null) logger.info(tag + " - " + msg);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -318,8 +313,7 @@ public class AppLogger {
             setPattern("%d{3} %c{1} [%P] %m %T");
         }
 
-        public String format(String clientID, String name, long time, Level level, Object message,
-                             Throwable t) {
+        public String format(String clientID, String name, long time, Level level, Object message, Throwable t) {
             return super.format(clientID, name, System.currentTimeMillis(), level, message, t);
         }
     }

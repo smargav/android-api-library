@@ -427,8 +427,8 @@ public class WebSession {
                 contentLength = request.body().contentLength();
                 content = bodyToString(request);
             }
-            AppLogger.d(getClass(), "Request: " + request.url() + " Content-Length: " + contentLength);
-            AppLogger.d(getClass(), "Params: " + content);
+            AppLogger.i(getClass(), "Request: " + request.url() + " Content-Length: " + contentLength);
+            AppLogger.i(getClass(), "Params: " + content);
 
             Response response = chain.proceed(request);
 
