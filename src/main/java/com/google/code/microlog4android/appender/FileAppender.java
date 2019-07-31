@@ -77,7 +77,7 @@ public class FileAppender extends AbstractAppender {
     public synchronized void open() throws IOException {
         File logFile = getLogFile();
         logOpen = false;
-
+    
         if (logFile != null) {
             if (!logFile.exists()) {
                 if (!logFile.createNewFile()) {

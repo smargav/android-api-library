@@ -60,7 +60,7 @@ public class PermissionsActivity extends AppCompatActivity {
     }
 
     public static boolean startRuntimePerms(Context context) {
-        if (!PermissionsActivity.hasAllRequiredPerms(context)) {
+        if (PermissionsActivity.hasAllRequiredPerms(context)) {
             return false;
         }
         Intent intent = new Intent(context, PermissionsActivity.class);

@@ -10,7 +10,6 @@
         android:layout_centerVertical="true"
         android:padding="10dp"
         android:text="Dialog."
-        android:textColor="?android:attr/textColor"
         android:textSize="20sp" />
 
 </RelativeLayout>
